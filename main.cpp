@@ -105,10 +105,10 @@ int main(int argc, char *argv[])
             w.StartRow();
                 w.StartColumn();
                     w.AddPopList("b2");
-                    char * buf=new char;
+                    char * newBuf= new char;
                     for (int i = 0; i<5; i++){
-                        sprintf(buf,"%d",i);
-                        cout<<buf<<endl;
+                        sprintf(newBuf,"%d",i);
+                        //cout<newBuf<<endl;
                         w.ListAdd("b2",buf);
                     }
                 w.EndColumn();
