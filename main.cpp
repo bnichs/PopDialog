@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
             w.StartRow();
                 w.StartColumn();
                     w.AddPopList("b2");
-                    char * buf;
+                    char * buf=new char;
                     for (int i = 0; i<5; i++){
                         sprintf(buf,"%d",i);
                         cout<<buf<<endl;
@@ -150,9 +150,9 @@ int main(int argc, char *argv[])
         w.SetTileTip("B3","HOVER!!!!");
     w.EndRow();
     w.StartRow();
-        w.StartColumn();
+       // w.StartColumn();
          //   w.AddGLView("g1");
-        w.EndColumn();
+        //w.EndColumn();
         w.StartColumn();
             w.AddButton("but1","hey there");
           //  w.ActionTile("but1",&insert);
