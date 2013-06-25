@@ -13,18 +13,50 @@
 #include <QApplication>
 #include <QtWidgets>
 
-//#include "glwidget.h"
 
 
-// #include <QGLWidget>
-//#include <QtOpenGL/QGLWidget>
-/*
-void QPushButton::mousePressEvent(QMouseEvent *e)
-{
-    if(e->button()==Qt::LeftButton)
-        emit rightClicked();
+void MyDialog::SetCurrentTab(const char * tabControl, int tab){
+    if (!handleMap[tabControl]){
+        cout<<"That tab control doesn't exist"<<endl;
+        return;
+    }
+    else if (handleMap[tabControl]->children.size()>=tab){
+        Node * tabRoot = handleMap[tabControl];
+
+        currentParent= tabRoot->children.at(tab);
+
+    }
+    else{
+        cout<<"Tab doesn't exist"<<endl;
+        return;
+
+    }
 }
-*/
+
+
+void MyDialog::AddTabCtrl(const char * tabControl, int length, int height){
+    Node * node= new Node(tabControl);
+    node->isLeaf=false;
+    node->type=TABCTRL;
+    addNode(node);
+}
+
+
+void MyDialog::AddTab(const char * tabControl, char * name){
+    if (!handleMap[tabControl]){
+        cout<<"That tab control doesn't exist"<<endl;
+        return;
+    }
+    else{
+        Node * dad = handleMap[tabControl];
+
+        Node * n = new Node();
+        n->isLeaf=false;
+        n->type=TAB;
+        n->parent=dad;
+        dad->addChild(n);
+    }
+}
 
 
 MyDialog::MyDialog(QWidget *parent) : QDialog(parent)
@@ -65,7 +97,8 @@ void MyDialog::AddButton(const char* handle,
 
     Node * n = new Node(handle);
     QPushButton * qbp = new QPushButton(caption);
-    qbp->resize(length, 100);
+   // qbp->resize(length, 100);
+    qbp->setMinimumWidth(length);
     n->myWidget=qbp;
     n->data=caption;
     n->type=BUTTON;
@@ -162,23 +195,23 @@ void MyDialog::SetBitmap(const char * handle,
             QIcon icon(imDisplay);
             button->setIcon(icon);
         }
-
-
-
     }
 
 
 
 }
 
-void MyDialog::AddTabCtrl(const char * tile, int length, int height){
 
+
+//#include "glwidget.h"
+
+
+// #include <QGLWidget>
+//#include <QtOpenGL/QGLWidget>
+/*
+void QPushButton::mousePressEvent(QMouseEvent *e)
+{
+    if(e->button()==Qt::LeftButton)
+        emit rightClicked();
 }
-
-void MyDialog::SetCurrentTab(const char *, int tab){
-
-}
-
-void MyDialog::AddTab(const char * tile, char * name){
-
-}
+*/

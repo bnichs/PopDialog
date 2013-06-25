@@ -4,7 +4,7 @@
 #include <QWidget>
 
 enum m_type{
-    ROW,COL,BUTTON, TOGGLE, POPLIST, SLIDER, TAB, OPENGL, RADIOGROUP, TEXT
+    ROW,COL,BUTTON, TOGGLE, POPLIST, SLIDER, TABCTRL, TAB, OPENGL, RADIOGROUP, TEXT
 };
 
 class Node {
@@ -40,6 +40,10 @@ public:
             delete children.at(i);
     }
 
+    void addChild(Node * n){
+        this->children.push_back(n);
+    }
+
     char *  getType(){
         char * str;
         switch (type){
@@ -63,6 +67,9 @@ public:
             break;
         case OPENGL:
             str="OpenGL";
+            break;
+        case TABCTRL:
+            str="Tab Control";
             break;
         case TAB:
             str="Tab";

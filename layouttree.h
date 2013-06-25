@@ -25,6 +25,11 @@ public:
 
     void EndRow();
 
+    void AddTab(const char * tile);
+
+    void SetCurrentTab(const char * tile);
+
+
 
 };
 

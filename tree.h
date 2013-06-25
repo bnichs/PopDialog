@@ -17,7 +17,7 @@ struct cmp{
 
 
 //This is an implementaion of a tree with three node types, rows columns and leafs.
-//Rows can only next columns and columns can only next rows. Both can nest leafs.
+//Rows can only nest columns and columns can only nest rows. Both can nest leafs.
 class Tree{
 protected:
 

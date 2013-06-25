@@ -20,11 +20,11 @@ public:
     };
     explicit MyDialog(QWidget *parent = 0);
 
-	void AddTabCtrl(const char * tile, int length, int height);
+    void AddTabCtrl(const char * tabControl, int length=0, int height=0);
 
-	void SetCurrentTab(const char *, int tab);
+    void SetCurrentTab(const char * tabControl, int tab=0);
 
-	void AddTab(const char * tile, char * name);
+    void AddTab(const char * tabControl, char * name);
 
     void display();
 
@@ -35,7 +35,7 @@ public:
 
     void AddButton(const char * handle,
                    const char * caption="",
-                   int length=20);
+                   int length=150);
 
     //void AddRadioGroup(const char * handle);
 
