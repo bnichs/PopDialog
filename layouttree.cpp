@@ -100,11 +100,27 @@ void * LayoutTree::buildLayout(Node * seed){
     QBoxLayout * box;
     QTabWidget * tabCtrl;
 
+    vector<Node *> children= seed->children;
+    vector<Node* >::iterator child=children.begin();
+
     switch (seed->type){
 
     case ROW:
         box = new QHBoxLayout();
-        //add all the children
+
+        for (;child!=children.end();vit++){
+            if (child->type==ROW){
+                cout<<"Can't nest Rows and Rows"<<endl;
+                return;
+            }
+
+            if (child->isLeaf){
+                box->addWidget(child->myWidget);
+            }else{
+                box->addLayout(buildLayout(child));
+            }
+        }
+
         break;
     case COL:
         box = new QVBoxLayout();
@@ -112,16 +128,48 @@ void * LayoutTree::buildLayout(Node * seed){
         // break;
     case TABCTRL:
          tabCtrl = new QTabWidget;
+         QWidget * tmp;
+
+         for (;child!=children.end();child++){
+             tmp=buildLayout(child);
+             tabCtrl->addTab(tmp,"");
+
+         }
         return tabCtrl;
        // break;
 
     case TAB:
         QWidget * theWidget;
+        QBoxLayout * theBox;
+        int type=-1;
+
+        for (;child !=children.end();child++){
+            if (child->type==ROW) type=1;
+            if (child->type==COL) type=2;
+        }
 
 
+        if (type==-1 || type==2)//either no chidlren or they are cols
+            theBox=new QVBoxLayout;
+        else if (type==1)
+            theBox=new QHBoxLayout;
 
+
+        for (child = children.begin();child!=children.end();child++){
+            if (child->isLeaf){
+                theBox->addWidget(child->myWidget);
+            }else{
+                theBox->addLayout(buildLayout(child));
+            }
+
+        }
+        theWidget->setLayout(theBox);
 
         return theWidget;
+    default: // this is assuming the object is a widget
+
+        break;
+
 
 
     }
