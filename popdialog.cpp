@@ -65,7 +65,7 @@ MyDialog::MyDialog(QWidget *parent) : QDialog(parent)
 
 
 void MyDialog::display(){
-    setLayout(this->buildLayout());
+    setLayout(static_cast<QBoxLayout*>(this->buildLayout()));
 }
 
 void MyDialog::ActionTile(const char * handle/*,

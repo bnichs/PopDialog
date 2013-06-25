@@ -24,9 +24,10 @@ protected:
     Node * root;
     int currentLevel;
     Node * currentParent;
-    Node * currentCol;
-    Node * currentRow;
-    bool started;
+    Node * lastParent;
+  //  Node * currentCol;
+  //  Node * currentRow;
+   // bool started;
     map<const char *, Node *,cmp> handleMap;
 public:
     Tree();

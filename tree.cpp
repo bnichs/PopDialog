@@ -7,13 +7,14 @@
 using namespace std;
 
 void printTabs(int n){
-    cout<< string(n,'\t');
+    cout<< string(n,'  ');
 }
 
 Tree::Tree(){
-    root=currentParent=new Node();
+    root=currentParent=lastParent=new Node();
     root->isLeaf=false;
-    started=false;
+    root->type=ROOT;
+    //started=false;
     currentLevel=0;
 }
 
@@ -34,11 +35,11 @@ void Tree::printTree(Node * seed){
 
     printTabs(currentLevel);
     if (seed->isLeaf){
+        printTabs(currentLevel-1);
         cout<<seed->getType()<<": "<<seed->handle<<endl;
         return;
     }
     else{
-       // cout<< (seed->isRow ? "^Row" : "^Col" )<<seed<<endl;
         cout<< "^" << seed->getType() <<": " <<seed<<endl;
         currentLevel++;
         for (unsigned int i = 0; i < seed->children.size(); i++){

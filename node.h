@@ -4,7 +4,7 @@
 #include <QWidget>
 
 enum m_type{
-    ROW,COL,BUTTON, TOGGLE, POPLIST, SLIDER, TABCTRL, TAB, OPENGL, RADIOGROUP, TEXT
+   ROOT, ROW,COL,BUTTON, TOGGLE, POPLIST, SLIDER, TABCTRL, TAB, OPENGL, RADIOGROUP, TEXT
 };
 
 class Node {
@@ -80,7 +80,9 @@ public:
         case RADIOGROUP:
             str="RadioGroup";
             break;
-
+        case ROOT:
+            str="Root";
+            break;
         default:
             str= "Unknown";
             break;

@@ -24,6 +24,8 @@ int main(int argc, char *argv[])
      char * buf = new char;
 
 
+
+
      w.StartColumn();
      for (int i = 0; i<8; i++){
          w.StartRow();
@@ -32,26 +34,30 @@ int main(int argc, char *argv[])
      }
      w.EndColumn();
      w.StartColumn();
-      //  w.AddTabCtrl("Tabctrl");
-      //  w.AddTab("Tabctrl","Tab1");
-      //  w.AddTab("Tabctrl","Tab2");
-      //  w.SetCurrentTab("Tabctrl",0);
+        w.AddTabCtrl("Tabctrl");
+       w.AddTab("Tabctrl","Tab1");
+        w.AddTab("Tabctrl","Tab2");
+        w.SetCurrentTab("Tabctrl",0);
 
            w.AddButton("b2", "right side");
-       // w.StartColumn();
-            /*w.StartRow();
-                w.AddButton("b2", "right side");
-            w.EndRow();
-            w.StartRow();
-                w.AddButton("b2", "right side");
-            w.EndRow();*/
-       // w.EndColumn();
+            w.StartColumn();
+                w.StartRow();
+                    w.AddButton("b2", "right side");
+                 w.EndRow();
+                w.StartRow();
+                    w.AddButton("b2", "right side");
+                w.EndRow();
+            w.EndColumn();
+       w.SetCurrentTab("Tabctrl",1);
 
+       w.StartRow();
+       w.AddButton("newb","newbutton");
+        w.EndRow();
 
      w.EndColumn();
 
-     w.display();
-     w.show();
+     //w.display();
+     //w.show();
 
      w.printTree();
      /*
@@ -157,7 +163,7 @@ int main(int argc, char *argv[])
 
     w.display();
     w.show();*/
-	return a.exec();
+    return 0;//a.exec();
 }
 
 /*
@@ -174,14 +180,10 @@ int buildDialog(int argc, char *argv[]){
             w.StartRow();
                 w.StartColumn();
                     w.AddPopList("b2");
-<<<<<<< HEAD
-                    char * newBuf= new char;
-=======
                     char * buf;
->>>>>>> Works on windows, adds some tab function headers
                     for (int i = 0; i<5; i++){
-                        sprintf(newBuf,"%d",i);
-                        //cout<newBuf<<endl;
+                        sprintf(buf,"%d",i);
+                        cout<<buf<<endl;
                         w.ListAdd("b2",buf);
                     }
                 w.EndColumn();

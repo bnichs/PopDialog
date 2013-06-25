@@ -15,7 +15,7 @@ public:
 
     //~LayoutTree();
 
-    QBoxLayout * buildLayout(Node * seed=NULL);
+    void *buildLayout(Node * seed=NULL);
 
     void StartColumn();
 
