@@ -22,10 +22,10 @@ Tree::~Tree(){
 }
 
 //adds a node at the current tree position
-void Tree::addNode(Node * leaf){
-    handleMap[leaf->handle]= leaf;
-    leaf->parent=currentParent;
-    currentParent->children.push_back(leaf);
+void Tree::addNode(Node * node){
+    handleMap[node->handle]= node;
+    node->parent=currentParent;
+    currentParent->addChild(node);
 }
 
 void Tree::printTree(Node * seed){

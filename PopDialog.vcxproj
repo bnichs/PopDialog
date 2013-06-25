@@ -106,7 +106,7 @@
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_OPENGL_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <ProgramDataBaseFileName>.\</ProgramDataBaseFileName>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -134,7 +134,9 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="glwidget.cpp" />
+    <ClCompile Include="glwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="layouttree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="popdialog.cpp" />
@@ -150,6 +152,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I"..\..\Qt\Qt5.0.2\5.0.2\msvc2010_opengl\include" -I"..\..\Qt\Qt5.0.2\5.0.2\msvc2010_opengl\include\QtOpenGL" -I"..\..\Qt\Qt5.0.2\5.0.2\msvc2010_opengl\include\QtWidgets" -I"..\..\Qt\Qt5.0.2\5.0.2\msvc2010_opengl\include\QtGui" -I"..\..\Qt\Qt5.0.2\5.0.2\msvc2010_opengl\include\QtCore" -I"debug" -I"." -I..\..\Qt\Qt5.0.2\5.0.2\msvc2010_opengl\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 glwidget.h -o debug\moc_glwidget.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC glwidget.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_glwidget.cpp;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </CustomBuild>
     <ClInclude Include="layouttree.h" />
     <ClInclude Include="node.h" />
@@ -166,12 +169,6 @@
     <ClInclude Include="tree.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="debug\moc_glwidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="release\moc_glwidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="debug\moc_popdialog.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>

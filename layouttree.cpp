@@ -8,7 +8,19 @@
 using namespace std;
 
 
+/*
+void LayoutTree::AddTab(const char * tile){
+
+    Node * newTab = new Node();
+    newTab->isLeaf=false;
+    newTab->type=TAB;
+    newTab->parent=currentParent;
+    vector <Node *> *children=&(currentParent->children);
+    children->push_back(newTab);
+}*/
+
 void LayoutTree::StartColumn(){
+    cout<<root<<endl;
     if (!started){
         currentRow=root;
         root->type=ROW;

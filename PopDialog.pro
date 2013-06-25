@@ -4,16 +4,16 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets opengl
+QT       += core gui widgets #opengl
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+#greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-QT+= widgets
 TARGET = PopDialog
 TEMPLATE = app
 QMAKE_CXXFLAGS += -std=c++11
 
 CONFIG += static
+
 
 SOURCES += main.cpp\
     tree.cpp \
