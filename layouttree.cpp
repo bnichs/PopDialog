@@ -8,20 +8,8 @@
 using namespace std;
 
 
-/*
-void LayoutTree::AddTab(const char * tile){
-
-    Node * newTab = new Node();
-    newTab->isLeaf=false;
-    newTab->type=TAB;
-    newTab->parent=currentParent;
-    vector <Node *> *children=&(currentParent->children);
-    children->push_back(newTab);
-}*/
 
 void LayoutTree::StartColumn(){
-
-
     Node * n = new Node();
     n->isLeaf=false;
     n->type=COL;
@@ -30,26 +18,11 @@ void LayoutTree::StartColumn(){
     lastParent=currentParent;
     currentParent=n;
 
-    /*cout<<root<<endl;
-    if (!started){
-        currentRow=root;
-        root->type=ROW;
-        started=true;
-    }
 
-    Node * newCol = new Node();
-    newCol->isLeaf=false;
-    newCol->type=COL;
-    newCol->parent=currentRow;
-    vector <Node *> *children=&(currentRow->children);
-    children->push_back(newCol);
-    currentParent=currentCol=newCol;*/
 }
 
 void LayoutTree::EndColumn(){
-    //currentRow=currentCol->parent;
-    //currentCol=NULL;
-   // cout<<lastParent<<endl;
+
     currentParent=lastParent;
      currentParent=currentParent->parent;
 }
@@ -63,32 +36,12 @@ void LayoutTree::StartRow(){
     currentParent->addChild(n);
     lastParent=currentParent;
     currentParent=n;
-/*    if (!started){
-        currentCol=root;
-        root->type=COL;
-        started=true;
-    }
-
-    Node * newRow= new Node();
-    newRow->type=ROW;
-    newRow->isLeaf=false;
-    newRow->parent=currentCol;
-    vector <Node *> *children=&(currentCol->children);
-    children->push_back(newRow);
-    currentParent=currentRow=newRow;
-*/
 }
 
 void LayoutTree::EndRow(){
     currentParent=currentParent->parent;
-   // cout<<lastParent<<endl;
-    /*currentCol=currentRow->parent;
-    currentRow=NULL;*/
+
 }
-
-
-
-
 
 /*returns a qboxlayout object with all of the
  * nodes contained under the tree that seed is the root of
@@ -108,16 +61,16 @@ void * LayoutTree::buildLayout(Node * seed){
     case ROW:
         box = new QHBoxLayout();
 
-        for (;child!=children.end();vit++){
-            if (child->type==ROW){
+        for (;child!=children.end();child++){
+            if ((*child)->type==ROW){
                 cout<<"Can't nest Rows and Rows"<<endl;
-                return;
+                return NULL;
             }
 
-            if (child->isLeaf){
-                box->addWidget(child->myWidget);
+            if ((*child)->isLeaf){
+                box->addWidget((*child)->myWidget);
             }else{
-                box->addLayout(buildLayout(child));
+                box->addLayout(buildLayout(*child));
             }
         }
 
@@ -131,8 +84,8 @@ void * LayoutTree::buildLayout(Node * seed){
          QWidget * tmp;
 
          for (;child!=children.end();child++){
-             tmp=buildLayout(child);
-             tabCtrl->addTab(tmp,"");
+             tmp=buildLayout(*child);
+             tabCtrl->addTab(tmp,(*child)->data);
 
          }
         return tabCtrl;
@@ -144,8 +97,8 @@ void * LayoutTree::buildLayout(Node * seed){
         int type=-1;
 
         for (;child !=children.end();child++){
-            if (child->type==ROW) type=1;
-            if (child->type==COL) type=2;
+            if ((*child)->type==ROW) type=1;
+            if ((*child)->type==COL) type=2;
         }
 
 
@@ -156,10 +109,10 @@ void * LayoutTree::buildLayout(Node * seed){
 
 
         for (child = children.begin();child!=children.end();child++){
-            if (child->isLeaf){
-                theBox->addWidget(child->myWidget);
+            if ((*child)->isLeaf){
+                theBox->addWidget((*child)->myWidget);
             }else{
-                theBox->addLayout(buildLayout(child));
+                theBox->addLayout(buildLayout(*child));
             }
 
         }

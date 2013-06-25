@@ -54,6 +54,7 @@ void MyDialog::AddTab(const char * tabControl, char * name){
         n->isLeaf=false;
         n->type=TAB;
         n->parent=dad;
+        n->data=name;
         dad->addChild(n);
     }
 }
