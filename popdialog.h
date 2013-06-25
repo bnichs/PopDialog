@@ -8,7 +8,7 @@
 typedef void* (*aFunc)(void*,char*,int);
 
 
-class MyDialog : public QDialog, public LayoutTree
+class PopDialog : public QDialog, public LayoutTree
 {
     Q_OBJECT
 public:
@@ -18,11 +18,11 @@ public:
        char * dos;
        int * tres;
     };
-    explicit MyDialog(QWidget *parent = 0);
+    explicit PopDialog(QWidget *parent = 0);
 
     void AddTabCtrl(const char * tabControl, int length=0, int height=0);
 
-    void SetCurrentTab(const char * tabControl, int tab=0);
+    void SetCurrentTab(const char * tabControl, unsigned int tab=0);
 
     void AddTab(const char * tabControl, char * name);
 

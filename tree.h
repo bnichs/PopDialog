@@ -25,9 +25,6 @@ protected:
     int currentLevel;
     Node * currentParent;
     Node * lastParent;
-  //  Node * currentCol;
-  //  Node * currentRow;
-   // bool started;
     map<const char *, Node *,cmp> handleMap;
 public:
     Tree();
@@ -35,8 +32,6 @@ public:
 
     void addNode(Node * leaf);
     void printTree(Node * seed=NULL);
-    //void AddButton(const char * title);
-
 };
 
 #endif // TREE_H

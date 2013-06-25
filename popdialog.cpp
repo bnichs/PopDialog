@@ -15,7 +15,7 @@
 
 
 
-void MyDialog::SetCurrentTab(const char * tabControl, int tab){
+void PopDialog::SetCurrentTab(const char * tabControl, unsigned int tab){
     if (!handleMap[tabControl]){
         cout<<"That tab control doesn't exist"<<endl;
         return;
@@ -34,7 +34,7 @@ void MyDialog::SetCurrentTab(const char * tabControl, int tab){
 }
 
 
-void MyDialog::AddTabCtrl(const char * tabControl, int length, int height){
+void PopDialog::AddTabCtrl(const char * tabControl, int length, int height){
     Node * node= new Node(tabControl);
     node->isLeaf=false;
     node->type=TABCTRL;
@@ -42,7 +42,7 @@ void MyDialog::AddTabCtrl(const char * tabControl, int length, int height){
 }
 
 
-void MyDialog::AddTab(const char * tabControl, char * name){
+void PopDialog::AddTab(const char * tabControl, char * name){
     if (!handleMap[tabControl]){
         cout<<"That tab control doesn't exist"<<endl;
         return;
@@ -60,16 +60,16 @@ void MyDialog::AddTab(const char * tabControl, char * name){
 }
 
 
-MyDialog::MyDialog(QWidget *parent) : QDialog(parent)
+PopDialog::PopDialog(QWidget *parent) : QDialog(parent)
 {
 }
 
 
-void MyDialog::display(){
+void PopDialog::display(){
     setLayout(static_cast<QBoxLayout*>(this->buildLayout()));
 }
 
-void MyDialog::ActionTile(const char * handle/*,
+void PopDialog::ActionTile(const char * handle/*,
                 void (*func)(void *, char *, int )*/){
     //void * ptr=func;
     if (!handleMap[handle])
@@ -82,7 +82,7 @@ void MyDialog::ActionTile(const char * handle/*,
 
 }
 
-void MyDialog::AddText(const char * handle,
+void PopDialog::AddText(const char * handle,
                         const char * text){
 
     Node * n = new Node(handle);
@@ -92,13 +92,12 @@ void MyDialog::AddText(const char * handle,
     addNode(n);
 }
 
-void MyDialog::AddButton(const char* handle,
+void PopDialog::AddButton(const char* handle,
                           const char * caption,
                           int length){
 
     Node * n = new Node(handle);
     QPushButton * qbp = new QPushButton(caption);
-   // qbp->resize(length, 100);
     qbp->setMinimumWidth(length);
     n->myWidget=qbp;
     n->data=caption;
@@ -106,19 +105,21 @@ void MyDialog::AddButton(const char* handle,
     addNode(n);
 }
 
-void MyDialog::AddToggle(const char * handle,
+void PopDialog::AddToggle(const char * handle,
                           int length,
                           const char * caption){
 
     Node * n = new Node(handle);
     QRadioButton *qrb = new QRadioButton(caption);
+    qrb->setMinimumWidth(length);
     n->myWidget=qrb;
     n->data=handle;
     n->type=TOGGLE;
     addNode(n);
 }
 
-void MyDialog::AddSlider(const char * handle,
+//@TODO this should have its own class which includes labels for min and max
+void PopDialog::AddSlider(const char * handle,
                           int length,
                           int height,
                           int style,
@@ -126,36 +127,30 @@ void MyDialog::AddSlider(const char * handle,
                           int max){
 
     Node * n = new Node(handle);
+    QSlider * qsp = new QSlider;
+    qsp->setMinimumWidth(length);
+    qsp->setMinimumHeight(height);
+    n->myWidget=qsp;
     n->data=handle;
     n->type=SLIDER;
     addNode(n);
 }
 
-/*
-void MyDialog::AddGLView(const char * handle,
-                          int width,
-                          int height){
 
-    Node * n = new Node(handle);
-    GLWidget * glw = new GLWidget();
-    glw->resize(10,10);
-    n->type=OPENGL;
-    n->myWidget=glw;
-    addNode(n);
-}*/
 
-void MyDialog::AddPopList(const char * handle,
+void PopDialog::AddPopList(const char * handle,
                            int len){
 
     Node * n = new Node(handle);
     QComboBox * qcb = new QComboBox();
+    qcb->setMinimumWidth(len);
     n->data=handle;
     n->type=POPLIST;
     n->myWidget=qcb;
     addNode(n);
 }
 
-void MyDialog::ListAdd(const char * handle,
+void PopDialog::ListAdd(const char * handle,
                         const char * line){
 
     if (!handleMap[handle])
@@ -169,7 +164,7 @@ void MyDialog::ListAdd(const char * handle,
 }
 
 
-void MyDialog::SetTileTip(const char * handle,
+void PopDialog::SetTileTip(const char * handle,
                            const char * value){
 
     if (!handleMap[handle])
@@ -180,7 +175,7 @@ void MyDialog::SetTileTip(const char * handle,
     }
 }
 
-void MyDialog::SetBitmap(const char * handle,
+void PopDialog::SetBitmap(const char * handle,
                           int id,
                           const char * fil){
 
@@ -202,6 +197,20 @@ void MyDialog::SetBitmap(const char * handle,
 
 }
 
+
+
+/*
+void MyDialog::AddGLView(const char * handle,
+                          int width,
+                          int height){
+
+    Node * n = new Node(handle);
+    GLWidget * glw = new GLWidget();
+    glw->resize(10,10);
+    n->type=OPENGL;
+    n->myWidget=glw;
+    addNode(n);
+}*/
 
 
 //#include "glwidget.h"

@@ -1,8 +1,9 @@
 #include "layouttree.h"
 #include <vector>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QComboBox>
+//#include <QPushButton>
+//#include <QRadioButton>
+//#include <QComboBox>
+#include <QTableWidget>
 #include "node.h"
 #include <iostream>
 using namespace std;
@@ -22,7 +23,6 @@ void LayoutTree::StartColumn(){
 }
 
 void LayoutTree::EndColumn(){
-
     currentParent=lastParent;
      currentParent=currentParent->parent;
 }
@@ -45,10 +45,12 @@ void LayoutTree::EndRow(){
 
 /*returns a qboxlayout object with all of the
  * nodes contained under the tree that seed is the root of
+
+ @TODO fix void pointers and cast everything correctly
+
 */
 void * LayoutTree::buildLayout(Node * seed){
     seed = (seed==NULL) ? root : seed;
-
 
     QBoxLayout * box;
     QTabWidget * tabCtrl;
@@ -77,6 +79,18 @@ void * LayoutTree::buildLayout(Node * seed){
         break;
     case COL:
         box = new QVBoxLayout();
+        for (;child!=children.end();child++){
+            if ((*child)->type==COL){
+                cout<<"Can't nest Cols and Cols"<<endl;
+                return NULL;
+            }
+
+            if ((*child)->isLeaf){
+                box->addWidget((*child)->myWidget);
+            }else{
+                box->addLayout(buildLayout(*child));
+            }
+        }
        return box;
         // break;
     case TABCTRL:
@@ -86,7 +100,6 @@ void * LayoutTree::buildLayout(Node * seed){
          for (;child!=children.end();child++){
              tmp=buildLayout(*child);
              tabCtrl->addTab(tmp,(*child)->data);
-
          }
         return tabCtrl;
        // break;
@@ -114,7 +127,6 @@ void * LayoutTree::buildLayout(Node * seed){
             }else{
                 theBox->addLayout(buildLayout(*child));
             }
-
         }
         theWidget->setLayout(theBox);
 

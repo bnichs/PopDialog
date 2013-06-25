@@ -14,7 +14,6 @@ Tree::Tree(){
     root=currentParent=lastParent=new Node();
     root->isLeaf=false;
     root->type=ROOT;
-    //started=false;
     currentLevel=0;
 }
 
@@ -35,7 +34,7 @@ void Tree::printTree(Node * seed){
 
     printTabs(currentLevel);
     if (seed->isLeaf){
-        printTabs(currentLevel-1);
+        //printTabs(currentLevel-1);
         cout<<seed->getType()<<": "<<seed->handle<<endl;
         return;
     }

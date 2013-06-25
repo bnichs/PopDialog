@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-     MyDialog w;
+     PopDialog w;
      char * buf = new char;
 
 
