@@ -166,6 +166,7 @@ void * LayoutTree::buildLayout(Node * seed){
         theWidget->setLayout(theBox);
 
         return theWidget;
+
     default: // this is assuming the object is a widget
 
         break;

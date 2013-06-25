@@ -24,8 +24,6 @@ int main(int argc, char *argv[])
      char * buf = new char;
 
 
-
-
      w.StartColumn();
      for (int i = 0; i<8; i++){
          w.StartRow();
