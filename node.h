@@ -44,6 +44,10 @@ public:
         this->children.push_back(n);
     }
 
+    bool hasChildren(){
+        return this->children.size()>0;
+    }
+
     char *  getType(){
         char * str;
         switch (type){

@@ -20,17 +20,39 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-     PopDialog w;
-     char * buf = new char;
+
+    PopDialog w;
+    char * buf = new char;
 
 
-     w.StartColumn();
-     for (int i = 0; i<8; i++){
-         w.StartRow();
-            w.AddButton("b1","Texty!");
-         w.EndRow();
-     }
-     w.EndColumn();
+    w.StartColumn();
+       w.StartRow();
+
+           w.StartColumn();
+                w.AddButton("b9","Texty!1");
+           w.EndColumn();
+           w.StartColumn();
+                w.AddButton("b10","Texty!10");
+           w.EndColumn();
+w.EndRow();
+    w.EndColumn();
+
+
+    w.StartColumn();
+  // for (int i = 0; i<8; i++){
+        w.StartRow();
+           w.AddButton("b1","Texty!");
+        w.EndRow();
+ //   }
+    w.EndColumn();
+
+
+
+     w.printTree();
+     w.display();
+     w.show();
+
+
      /*w.StartColumn();
         w.AddTabCtrl("Tabctrl");
        w.AddTab("Tabctrl","Tab1");
@@ -54,10 +76,10 @@ int main(int argc, char *argv[])
 
      w.EndColumn();*/
 
-     w.display();
+   //  w.display();
      //w.show();
 
-     w.printTree();
+ //    w.printTree();
      /*
     QDialog * qd = new QDialog;
 
@@ -161,8 +183,8 @@ int main(int argc, char *argv[])
 
     w.display();
     w.show();*/
-    return 0;//a.exec();
-}
+  //  return 0;//a.exec();
+
 
 /*
 int buildDialog(int argc, char *argv[]){
@@ -237,9 +259,9 @@ int buildDialog(int argc, char *argv[]){
     w.printTree();
 
     w.display();
-    w.show();
+    w.show();*/
     return a.exec();
 }
 
-*/
+
 

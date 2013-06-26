@@ -13,7 +13,7 @@ TEMPLATE = app
 QMAKE_CXXFLAGS += -std=c++11
 
 CONFIG += static
-
+CONFIG +=    debug_and_release
 
 SOURCES += main.cpp\
     tree.cpp \

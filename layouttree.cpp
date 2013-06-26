@@ -23,8 +23,8 @@ void LayoutTree::StartColumn(){
 }
 
 void LayoutTree::EndColumn(){
-    currentParent=lastParent;
-     currentParent=currentParent->parent;
+    //currentParent=lastParent;
+    currentParent=currentParent->parent;
 }
 
 void LayoutTree::StartRow(){
@@ -40,8 +40,28 @@ void LayoutTree::StartRow(){
 
 void LayoutTree::EndRow(){
     currentParent=currentParent->parent;
+}
+
+/*
+// -1 if there are nest issues (tabs within tabs, rows within rows
+// 1 if its all good and the root is a col
+// 2 if its all good and the root is a row
+int validate(Node * root){
+    int type=-1;
+    vector<Node *> children = root->children;
+
+
+    if (root->hasChildren()){
+        for (int i=0;i<children.size;i++){
+
+
+        }
+    }
 
 }
+*/
+
+int calls=0;
 
 /*returns a qboxlayout object with all of the
  * nodes contained under the tree that seed is the root of
@@ -50,6 +70,70 @@ void LayoutTree::EndRow(){
 
 */
 void * LayoutTree::buildLayout(Node * seed){
+
+
+    if (seed->type==TABCTRL){
+
+    }
+    else if (seed->type==TAB){
+
+    }
+    else if (seed->type==ROOT){
+        int type=-1;
+        QBoxLayout * box;
+        vector<Node *> children= seed->children;
+        vector<Node* >::iterator child=children.begin();
+
+        for (;child !=children.end();child++){
+            if ((*child)->type==ROW) type=1;
+            if ((*child)->type==COL) type=2;
+        }
+        if (type==-1 || type==2)//either no chidlren or they are cols
+            box=new QVBoxLayout;
+        else if (type==1)
+            box=new QHBoxLayout;
+
+
+        for (unsigned int i=0; i< children.size();i++){
+            if (children.at(i)->isLeaf){
+                Node * child = children.at(i);
+                QWidget * widget=child->myWidget;
+                box->addWidget(widget);
+            }
+            else{
+                box->addLayout(static_cast<QBoxLayout *> (buildLayout(children.at(i))));
+            }
+        }
+
+        return box;
+
+    }
+    else{
+        QBoxLayout * box;
+
+        if (seed->type==ROW)
+            box = new QHBoxLayout();
+        else
+            box = new QVBoxLayout();
+
+        vector <Node *> children= seed->children;
+        for (unsigned int i=0; i< children.size();i++){
+            if (children.at(i)->isLeaf){
+                Node * child = children.at(i);
+                QWidget * widget=child->myWidget;
+                box->addWidget(widget);
+            }
+            else{
+                box->addLayout(static_cast<QBoxLayout *> (buildLayout(children.at(i))));
+            }
+        }
+
+        return box;
+    }
+
+
+   // cout <<"Build layout call #"<<++calls<<endl;
+/*
     seed = (seed==NULL) ? root : seed;
 
     QBoxLayout * box;
@@ -59,7 +143,31 @@ void * LayoutTree::buildLayout(Node * seed){
     vector<Node* >::iterator child=children.begin();
 
     switch (seed->type){
+    case ROOT:{
+        QBoxLayout * theBox;
+        int type=-1;
 
+        for (;child !=children.end();child++){
+            if ((*child)->type==ROW) type=1;
+            if ((*child)->type==COL) type=2;
+        }
+
+        if (type==-1 || type==2)//either no chidlren or they are cols
+            theBox=new QVBoxLayout;
+        else if (type==1)
+            theBox=new QHBoxLayout;
+
+
+        for (child = children.begin();child!=children.end();child++){
+            cout<< "Root has "<<++calls<<endl;
+            if ((*child)->isLeaf){
+                theBox->addWidget((*child)->myWidget);
+            }else{
+
+                    theBox->addLayout(static_cast<QHBoxLayout *> (buildLayout(*child)));
+            }
+        }
+        return theBox;}
     case ROW:
         box = new QHBoxLayout();
 
@@ -75,7 +183,7 @@ void * LayoutTree::buildLayout(Node * seed){
                 box->addWidget(static_cast<QTabWidget *>(buildLayout(*child)));
 
             }else{
-                box->addLayout(static_cast<QBoxLayout *> (buildLayout(*child)));
+                box->addLayout(static_cast<QVBoxLayout *> (buildLayout(*child)));
             }
         }
         return box;
@@ -93,7 +201,7 @@ void * LayoutTree::buildLayout(Node * seed){
                 box->addWidget(static_cast<QTabWidget *>(buildLayout(*child)));
 
             }else{
-                box->addLayout(static_cast<QBoxLayout *> (buildLayout(*child)));
+                box->addLayout(static_cast<QHBoxLayout *> (buildLayout(*child)));
             }
         }
        return box;
@@ -138,9 +246,10 @@ void * LayoutTree::buildLayout(Node * seed){
         return theWidget;
     }
     default: // this is assuming the object is a widget
+        QBoxLayout * theBox;
+        return theBox;
 
-        break;
-
+*/
 
 
     }
@@ -165,5 +274,5 @@ void * LayoutTree::buildLayout(Node * seed){
     }
 
     return box;*/
-}
+
 
