@@ -27,11 +27,11 @@ int main(int argc, char *argv[])
      w.StartColumn();
      for (int i = 0; i<8; i++){
          w.StartRow();
-         w.AddButton("b1","Texty!");
+            w.AddButton("b1","Texty!");
          w.EndRow();
      }
      w.EndColumn();
-     w.StartColumn();
+     /*w.StartColumn();
         w.AddTabCtrl("Tabctrl");
        w.AddTab("Tabctrl","Tab1");
         w.AddTab("Tabctrl","Tab2");
@@ -52,9 +52,9 @@ int main(int argc, char *argv[])
        w.AddButton("newb","newbutton");
         w.EndRow();
 
-     w.EndColumn();
+     w.EndColumn();*/
 
-     //w.display();
+     w.display();
      //w.show();
 
      w.printTree();

@@ -71,12 +71,14 @@ void * LayoutTree::buildLayout(Node * seed){
 
             if ((*child)->isLeaf){
                 box->addWidget((*child)->myWidget);
+            }else if ((*child)->type == TABCTRL){
+                box->addWidget(static_cast<QTabWidget *>(buildLayout(*child)));
+
             }else{
-                box->addLayout(buildLayout(*child));
+                box->addLayout(static_cast<QBoxLayout *> (buildLayout(*child)));
             }
         }
-
-        break;
+        return box;
     case COL:
         box = new QVBoxLayout();
         for (;child!=children.end();child++){
@@ -87,24 +89,27 @@ void * LayoutTree::buildLayout(Node * seed){
 
             if ((*child)->isLeaf){
                 box->addWidget((*child)->myWidget);
+            }else if ((*child)->type == TABCTRL){
+                box->addWidget(static_cast<QTabWidget *>(buildLayout(*child)));
+
             }else{
-                box->addLayout(buildLayout(*child));
+                box->addLayout(static_cast<QBoxLayout *> (buildLayout(*child)));
             }
         }
        return box;
-        // break;
     case TABCTRL:
          tabCtrl = new QTabWidget;
          QWidget * tmp;
 
          for (;child!=children.end();child++){
-             tmp=buildLayout(*child);
+             tmp=static_cast<QWidget *> (buildLayout(*child));
              tabCtrl->addTab(tmp,(*child)->data);
          }
         return tabCtrl;
        // break;
 
     case TAB:
+    {
         QWidget * theWidget;
         QBoxLayout * theBox;
         int type=-1;
@@ -125,13 +130,13 @@ void * LayoutTree::buildLayout(Node * seed){
             if ((*child)->isLeaf){
                 theBox->addWidget((*child)->myWidget);
             }else{
-                theBox->addLayout(buildLayout(*child));
+                theBox->addLayout(static_cast<QBoxLayout *> (buildLayout(*child)));
             }
         }
         theWidget->setLayout(theBox);
 
         return theWidget;
-
+    }
     default: // this is assuming the object is a widget
 
         break;
