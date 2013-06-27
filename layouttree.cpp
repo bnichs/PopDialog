@@ -63,6 +63,13 @@ int validate(Node * root){
 
 int calls=0;
 
+
+QTabWidget * LayoutTree::buildTabCtrl(Node * seed){
+    QTabWidget * tabRoot=new QTabWidget;
+}
+
+
+
 /*returns a qboxlayout object with all of the
  * nodes contained under the tree that seed is the root of
 
@@ -72,6 +79,9 @@ int calls=0;
 void * LayoutTree::buildLayout(Node * seed){
 
 
+
+
+    /*
     if (seed->type==TABCTRL){
 
     }
@@ -129,8 +139,8 @@ void * LayoutTree::buildLayout(Node * seed){
         }
 
         return box;
-    }
-
+    }*/
+}
 
    // cout <<"Build layout call #"<<++calls<<endl;
 /*
@@ -252,7 +262,7 @@ void * LayoutTree::buildLayout(Node * seed){
 */
 
 
-    }
+
 
    /* QBoxLayout * box;
 
